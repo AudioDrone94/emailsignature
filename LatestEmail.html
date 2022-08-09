@@ -1,0 +1,115 @@
+<HTML>
+  <HEAD>
+    
+    <script src="Scripts/html2canvas.min.js" ></script>
+    <SCRIPT LANGUAGE="JavaScript">
+
+function generateImage(form) {
+    var myImageHtml = `<div>
+       <div style="font-family: Arial, sans-serif;color: #366f5b;padding-left:123px;font-size: 10px;max-height: 0;position: relative;opacity: 0.999;">
+       <p style="font-size:5px">&nbsp;</p>
+       <p style="font-size:13px;margin-bottom:0"><strong>[[fullName]]</strong></p>
+       <p style="margin-top:4px;margin-bottom:15px">[[jobTitle]]<strong> | </strong>Commercial Banking<strong> | </strong>Nedbank Limited</p>
+       <p style="margin-bottom:0">[[address]]</p>
+       <p style="margin-top:0">[[address2]]</p>
+       <p>T [[telNum]]&nbsp;&nbsp;&nbsp;|C [[cellNum]]&nbsp;&nbsp;&nbsp;|E [[email]]</p>
+       <p style="font-size:20px ;">&nbsp;</p>
+        </div>
+        <div style="font-family: Arial, sans-serif;color: #366f5b;font-size: 9px;position: relative;padding-left: 284px;max-height: 0;position: relative;opacity: 0.999;">
+        </div>
+        <img style="width:650px;height:auto" src="Images/nedB.jpg">
+       </div>
+       `
+       
+    var fullName = form.fullName.value;
+    myImageHtml = myImageHtml.replace('[[fullName]]', fullName);
+    var jobTitle = form.jobTitle.value;
+    myImageHtml = myImageHtml.replace('[[jobTitle]]', jobTitle);
+    var address = form.address.value;
+    myImageHtml = myImageHtml.replace('[[address]]', address);
+    var address2 = form.address2.value;
+    myImageHtml = myImageHtml.replace('[[address2]]', address2);
+    var telNum = form.telNum.value;
+    myImageHtml = myImageHtml.replace('[[telNum]]', telNum);
+    var cellNum = form.cellNum.value;
+    myImageHtml = myImageHtml.replace('[[cellNum]]', cellNum);
+    var email = form.email.value;
+    myImageHtml = myImageHtml.replace('[[email]]', email);
+    
+    document.getElementById("preview").innerHTML = myImageHtml;
+
+    html2canvas(document.getElementById("preview"), { width:650 }).then(canvas => {
+      var image = canvas.toDataURL("image/png");
+      downloadURI("data:" + image, "emailSignature.png");
+    });
+  }
+
+  //Creating dynamic link that automatically click
+function downloadURI(uri, name) {
+    var link = document.createElement("a");
+    link.download = name;
+    link.href = uri;
+    link.click();
+}
+
+</SCRIPT>
+    
+    <style>
+    body {
+      font-family: Arial;
+    }
+    
+    input[type=text], select {
+      width: 100%;
+      padding: 12px 20px;
+      margin: 8px 0;
+      display: block;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+      box-sizing: border-box;
+    }
+    
+    input[type=submit] {
+      width: 100%;
+      background-color: #04AA6D;
+      color: white;
+      padding: 14px 20px;
+      margin: 8px 0;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+    
+    input[type=submit]:hover {
+      background-color: #45a049;
+    }
+    
+    div.container {
+      border-radius: 5px;
+      background-color: #f2f2f2;
+      padding: 20px;
+    }
+    </style>
+    
+   </HEAD>
+    
+   <BODY>
+    
+    <div class="container">
+    <FORM NAME="myform">
+    <lable>Full Name: <INPUT TYPE="text" NAME="fullName" VALUE="" /></lable>
+    <lable>Job Title: <INPUT TYPE="text" NAME="jobTitle" VALUE="" /></lable>
+    <lable>Address (Street): <INPUT TYPE="text" NAME="address" VALUE="" /></lable>
+    <lable>Address (City, Zip, Country): <INPUT TYPE="text" NAME="address2" VALUE="" /></lable>
+    <lable>Telephone Number: <INPUT TYPE="text" NAME="telNum" VALUE="" /></lable>
+    <lable>Cellphone Number: <INPUT TYPE="text" NAME="cellNum" VALUE="" /></lable>
+    <lable>Email Address: <INPUT TYPE="text" NAME="email" VALUE="" /></lable>
+    <lable><INPUT TYPE="button" NAME="button" Value="Submit" onClick="generateImage(this.form)" />
+    </FORM>
+    </div>
+    <div id="preview">
+
+    </div>
+    
+  </BODY>
+</HTML>
