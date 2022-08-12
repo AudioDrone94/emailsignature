@@ -12,12 +12,12 @@ function generateImage(form) {
        <p style="margin-top:4px;margin-bottom:15px">[[jobTitle]]<strong> | </strong>Commercial Banking<strong> | </strong>Nedbank Limited</p>
        <p style="margin-bottom:0">[[address]]</p>
        <p style="margin-top:0">[[address2]]</p>
-       <p>T [[telNum]]&nbsp;&nbsp;&nbsp;|C [[cellNum]]&nbsp;&nbsp;&nbsp;|E [[email]]</p>
+       <p>T [[telNum]]&nbsp;&nbsp;|C [[cellNum]]&nbsp;&nbsp;|E [[email]]</p>
        <p style="font-size:20px ;">&nbsp;</p>
         </div>
         <div style="font-family: Arial, sans-serif;color: #366f5b;font-size: 9px;position: relative;padding-left: 284px;max-height: 0;position: relative;opacity: 0.999;">
         </div>
-        <img style="width:650px;height:auto" src="Images/nedB.jpg">
+        <img style="width:450px;height:auto" src="Images/nedB.jpg">
        </div>
        `
        
@@ -38,7 +38,7 @@ function generateImage(form) {
     
     document.getElementById("preview").innerHTML = myImageHtml;
 
-    html2canvas(document.getElementById("preview"), { width:650 }).then(canvas => {
+    html2canvas(document.getElementById("preview"), { width:450 }).then(canvas => {
       var image = canvas.toDataURL("image/png");
       downloadURI("data:" + image, "emailSignature.png");
     });
