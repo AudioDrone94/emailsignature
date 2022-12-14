@@ -11,7 +11,7 @@ function generateImage(form) {
        <p style="font-size:12px;margin-bottom:0"><b>[[fullName]]</b></p>
        <p style="font-weight: 500;margin-top:0px;margin-bottom:9px"><b>[[jobTitle]] | Commercial Banking | Nedbank Limited </b></p>
        <p style="margin-bottom:0; margin-top:-3px; word-wrap: break-word;width: 220px">[[address]]</p>
-       <p style="margin-top:6px"><span style="font-weight: bold; color: #00e677;">T&nbsp;</span> [[telNum]]<span style="font-weight: bold; color: #00e677;">&nbsp;&nbsp;C&nbsp;</span> [[cellNum]]<span style="font-weight: bold; color: #00e677;">&nbsp;&nbsp;E&nbsp;</span> [[email]]</p>
+       <p style="margin-top:6px"><span id="tel" style="font-weight: bold; color: #00e677;">T&nbsp;</span>[[telNum]]<span id="whitespace">&nbsp;&nbsp;</span><span style="font-weight: bold; color: #00e677;">C&nbsp;</span> [[cellNum]]<span style="font-weight: bold; color: #00e677;">&nbsp;&nbsp;E&nbsp;</span> [[email]]</p>
        <p style="font-size:20px ;">&nbsp;</p>
         </div>
         <div style="font-family: LibreFranklin;color: #366f5b;font-size: 6px;position: relative;padding-left: 284px;max-height: 0;position: relative;opacity: 0.999;">
@@ -35,7 +35,19 @@ function generateImage(form) {
     
     document.getElementById("preview").innerHTML = myImageHtml;
 
-    html2canvas(document.getElementById("preview"), { width:500 }).then(canvas => {
+
+    var telSpan = document.getElementById("tel"); 
+    var whitespace = document.getElementById("whitespace");
+    if(!telNum){ 
+    telSpan.style.display = "none";
+    whitespace.style.display = "none";
+    } 
+    else {
+      telSpan.style.display = "initial";
+      whitespace.style.display = "initial";
+    }
+
+    html2canvas(document.getElementById("preview"), { width:500, scale: 2 }).then(canvas => {
       var image = canvas.toDataURL("image/png");
       downloadURI("data:" + image, "emailSignature.png");
     });
@@ -140,13 +152,14 @@ function downloadURI(uri, name) {
       <option value="Vaal Mini Campus, Shop 123, Vaal Mall, Cnr Barrage Road and Rossini Boulevard, Vanderbijlpark, 2000 ">Vaal Mini Campus</option>
 
     </select>
-    <lable>Telephone Number: <INPUT TYPE="text" NAME="telNum" VALUE="" /></lable>
+    <lable>Telephone Number(optional): <INPUT TYPE="text" NAME="telNum" VALUE="" /></lable>
     <lable>Cellphone Number: <INPUT TYPE="text" NAME="cellNum" VALUE="" /></lable>
     <lable>Email Address: <INPUT TYPE="text" NAME="email" VALUE="" /></lable>
     <lable><INPUT TYPE="button" NAME="button" Value="Submit" onClick="generateImage(this.form)" />
     </FORM>
     </div>
     <div id="preview">
+
 
     </div>
     
