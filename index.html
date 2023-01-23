@@ -47,7 +47,7 @@ function generateImage(form) {
       whitespace.style.display = "initial";
     }
 
-    html2canvas(document.getElementById("preview"), { width:500, scale: 2 }).then(canvas => {
+    html2canvas(document.getElementById("preview"), { width:500, scale: 3 }).then(canvas => {
       var image = canvas.toDataURL("image/png");
       downloadURI("data:" + image, "emailSignature.png");
     });
