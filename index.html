@@ -9,9 +9,9 @@ function generateImage(form) {
        <div style="font-family: LibreFranklin;color: #366f5b;padding-left:95px;font-size: 9px;max-height: 0;position: relative;opacity: 0.999;">
        <p style="font-size:2px">&nbsp;</p>
        <p style="font-size:12px;margin-bottom:0"><b>[[fullName]]</b></p>
-       <p style="color: #000000;font-weight: 500;margin-top:1px;margin-bottom:9px"><b>[[jobTitle]] | Commercial Banking | Nedbank Limited </b></p>
+       <p style="color: #000000;font-weight: 500;margin-top:1px;margin-bottom:9px; font-size: 7px;">[[jobTitle]] | Commercial Banking | Nedbank Limited </p>
        <p style="margin-bottom:0; margin-top:3px;font-size: 7px;">[[address]]</p>
-       <p style="margin-top:6px"><span id="tel" style="font-weight: bold; color: #00e677;">T&nbsp;</span>[[telNum]]<span id="whitespace">&nbsp;&nbsp;</span><span style="font-weight: bold; color: #00e677;"></span>|</span><span style= "font-weight: bold; color:#00e677;">&nbsp;C&nbsp;</span> [[cellNum]]<span style="font-weight: bold; color: #00e677;"></span>&nbsp;&nbsp;|</span><span style="font-weight: bold; color:#00e677;">&nbsp;E&nbsp;</span> [[email]]</p>
+       <p style="margin-top:8px"><span id="tel" style="font-weight: bold; color: #00e677;">T&nbsp;</span>[[telNum]]<span id="whitespace">&nbsp;&nbsp;</span><span style="font-weight: bold; color: #00e677;"></span>|</span><span style= "font-weight: bold; color:#00e677;">&nbsp;C&nbsp;</span> [[cellNum]]<span style="font-weight: bold; color: #00e677;"></span>&nbsp;&nbsp;|</span><span style="font-weight: bold; color:#00e677;">&nbsp;E&nbsp;</span> [[email]]</p>
        <p style="font-size:20px ;">&nbsp;</p>
         </div>
         <div style="font-family: LibreFranklin;color: #366f5b;font-size: 6px;position: relative;padding-left: 284px;max-height: 0;position: relative;opacity: 0.999;">
@@ -68,7 +68,11 @@ function downloadURI(uri, name) {
     @font-face {
       font-weight: normal; 
       font-family: "LibreFranklin";
-      src: url(fonts/Libre_Franklin/LibreFranklin-VariableFont_wght.ttf);
+      src: url(fonts/Libre_Franklin/LibreFranklin-VariableFont_wght.ttf) format('truetype'),
+           url(fonts/Libre_Franklin/LibreFranklin-VariableFont_wght.woff) format('woff'),
+           url(fonts/Libre_Franklin/LibreFranklin-VariableFont_wght.woff2) format('woff2'),
+           url(fonts/Libre_Franklin/LibreFranklin-VariableFont_wght.eot),
+           url(fonts/Libre_Franklin/LibreFranklin-VariableFont_wght.eot?#iefix) format('embedded-opentype');
     }
 
     body {
