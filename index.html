@@ -1,0 +1,191 @@
+<HTML>
+  <HEAD>
+    
+    <script src="Scripts/html2canvas.min.js" ></script>
+    <SCRIPT LANGUAGE="JavaScript">
+
+function generateImage(form) {
+    var myImageHtml = `<div>
+       <div style="font-family: LibreFranklin;color: #366f5b;padding-left:95px;font-size: 9px;max-height: 0;position: relative;opacity: 0.999;">
+       <p style="font-size:2px">&nbsp;</p>
+       <p style="font-size:12px;margin-bottom:0"><b>[[fullName]]</b></p>
+       <p style="color: #000000;font-weight: 500;margin-top:1px;margin-bottom:9px; font-size: 7px;">[[jobTitle]] | Commercial Banking | Nedbank Limited </p>
+       <p style="margin-bottom:0; margin-top:3px;font-size: 7px; class="form-control"">[[address]]</p>
+       <p style="margin-top:8.5px"><span id="tel" style="font-weight: bold; color: #00e677;">T&nbsp;</span>[[telNum]]<span id="whitespace">&nbsp;&nbsp;</span><span style="font-weight: bold; color: #00e677;"></span>|</span><span style= "font-weight: bold; color:#00e677;">&nbsp;C&nbsp;</span> [[cellNum]]<span style="font-weight: bold; color: #00e677;"></span>&nbsp;&nbsp;|</span><span style="font-weight: bold; color:#00e677;">&nbsp;E&nbsp;</span> [[email]]</p>
+       <p style="font-size:20px ;">&nbsp;</p>
+        </div>
+        <div style="font-family: LibreFranklin;color: #366f5b;font-size: 6px;position: relative;padding-left: 284px;max-height: 0;position: relative;opacity: 0.999;">
+        </div>
+        <img style="width:500px;height:auto;image-rendering: -webkit-optimize-contrast;" src="Images/nedB.png">
+       </div>
+       `
+       
+    var fullName = form.fullName.value;
+    myImageHtml = myImageHtml.replace('[[fullName]]', fullName);
+    var jobTitle = form.jobTitle.value;
+    myImageHtml = myImageHtml.replace('[[jobTitle]]', jobTitle);
+    var address = form.address.value;
+
+    if(address == "other"){
+      address = form.addresstext.value;
+    }
+      
+    myImageHtml = myImageHtml.replace('[[address]]', address);
+
+
+    var telNum = form.telNum.value;
+    myImageHtml = myImageHtml.replace('[[telNum]]', telNum);
+    var cellNum = form.cellNum.value;
+    myImageHtml = myImageHtml.replace('[[cellNum]]', cellNum);
+    var email = form.email.value;
+    myImageHtml = myImageHtml.replace('[[email]]', email);
+    
+    document.getElementById("preview").innerHTML = myImageHtml;
+
+
+    var telSpan = document.getElementById("tel"); 
+    var whitespace = document.getElementById("whitespace");
+    if(!telNum){ 
+    telSpan.style.display = "none";
+    whitespace.style.display = "none";
+    } 
+    else {
+      telSpan.style.display = "initial";
+      whitespace.style.display = "initial";
+    }
+
+    html2canvas(document.getElementById("preview"), { width:500, scale: 8 }).then(canvas => {
+      var image = canvas.toDataURL("image/png");
+      downloadURI("data:" + image, "emailSignature.png");
+    });
+  }
+
+  //Creating dynamic link that automatically click
+function downloadURI(uri, name) {
+    var link = document.createElement("a");
+    link.download = name;
+    link.href = uri;
+    link.click();
+}
+
+function addressChange(){
+  if (document.getElementById("addressdropdown").value == "other"){
+        document.getElementById("addresstext").style.display = "";
+    }     
+    else{
+      document.getElementById("addresstext").style.display = "none";
+    }
+}
+
+</SCRIPT>
+    
+    <style>
+
+    @font-face {
+      font-weight: normal; 
+      font-family: "LibreFranklin";
+      src: url(fonts/Libre_Franklin/LibreFranklin-VariableFont_wght.ttf) format('truetype'),
+           url(fonts/Libre_Franklin/LibreFranklin-VariableFont_wght.woff) format('woff'),
+           url(fonts/Libre_Franklin/LibreFranklin-VariableFont_wght.woff2) format('woff2'),
+           url(fonts/Libre_Franklin/LibreFranklin-VariableFont_wght.eot),
+           url(fonts/Libre_Franklin/LibreFranklin-VariableFont_wght.eot?#iefix) format('embedded-opentype');
+    }
+
+    body {
+      font-family: LibreFranklin;
+    }
+    
+    input[type=text], select {
+      width: 100%;
+      padding: 12px 20px;
+      margin: 8px 0;
+      display: block;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+      box-sizing: border-box;
+    }
+    
+    input[type=submit] {
+      width: 100%;
+      background-color: #04AA6D;
+      color: white;
+      padding: 14px 20px;
+      margin: 8px 0;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+    
+    input[type=submit]:hover {
+      background-color: #45a049;
+    }
+    
+    div.container {
+      border-radius: 5px;
+      background-color: #f2f2f2;
+      padding: 20px;
+    }
+
+    option[default] {
+  display: none;
+  }
+
+    
+    </style>
+    
+   </HEAD>
+    
+   <BODY>
+    
+    <div class="container">
+    <FORM NAME="myform">
+    <lable>Full Name: <INPUT TYPE="text" NAME="fullName" VALUE="" /></lable>
+    <lable>Job Title: <INPUT TYPE="text" NAME="jobTitle" VALUE="" /></lable>
+    <!-- <lable>Address (Street): <INPUT TYPE="text" NAME="address" VALUE="" /></lable>
+    <lable>Address (City, Zip, Country): <INPUT TYPE="text" NAME="address2" VALUE="" /></lable> -->
+    <label>Address</label>
+    <select id="addressdropdown" name="address" onchange="addressChange()">
+      <option value="" default selected>--Select--</option>
+      <option value="105 West Campus, 105 West Street, Sandown, Sandton, 2196">105 West Campus</option>
+      <option value="135 Rivonia Campus, 135 Rivonia Road, Sandown, Sandton, 2196 ">135 Rivonia Campus</option>
+      <option value="270 Cape Road Campus, 270 Cape Road, Mill Park, Gqeberha, 6001 ">270 Cape Road Campus</option>
+      <option value="Bloemfontein Mini Campus, Cnr Second Avenue and Henry Street, Westdene, Bloemfontein, 9301 ">Bloemfontein Mini Campus</option>
+      <option value="Breda Campus Building, 1 Breda Street, Paarl, Western Cape, 7646 ">Breda Campus Building</option>
+      <option value="Clocktower Campus, Clocktower Precinct, V&A Waterfront, Cape Town, 8001 ">Clocktower Campus</option>
+      <option value="East London Campus, Cedar Square, Bonza Bay Road, Beacon Bay North, East London, 5241 ">East London Campus</option>
+      <option value="George Mini Campus, 108 York Street, George Central, George, 6530 ">George Mini Campus</option>
+      <option value="Kingsmead Campus, 90 Bram Fischer Road, Durban Central, Durban, 4001 ">Kingsmead Campus</option>
+      <option value="Lakeview Campus, 16 Constantia Boulevard, Constantia Kloof, Roodepoort, 1709 ">Lakeview Campus</option>
+      <option value="Meadowdale Campus, 6E Herman Street, Cnr Corobrik Street, Meadowdale, Edenvale, 1609 ">Meadowdale Campus</option>
+      <option value="Menlyn Maine Campus, 193 Bancor Avenue, Waterkloof Glen, Pretoria, 0181 ">Menlyn Maine Campus</option>
+      <option value="Middleburg Mini Campus, Shop 93A, Cnr Samora Machel Street and Dr Mandela Drive, Middelburg, 1055 ">Middleburg Mini Campus</option>
+      <option value="Nelspruit Mini Campus, Cnr Samora Machel and Madiba Roads, Mbombela, 1211 ">Nelspruit Mini Campus</option>
+      <option value="Newtown Junction Campus, 141 Lilian Ngoyi Street, Newtown, Johannesburg, 2113 ">Newtown Junction Campus</option>
+      <option value="Nedbank Park Square, 9 Park Avenue, Umhlanga Rocks, Durban, 4321">Nedbank Park Square</option>
+      <option value="Pietermaritzburg Mini Campus, 23 McCarthy Drive, Montrose, Pietermaritzburg, 3201 ">Pietermaritzburg Mini Campus</option>
+      <option value="Plattekloof Campus, Bloulelie Crescent, Plattekloof 3, Cape Town, 7500 ">Plattekloof Campus</option>
+      <option value="Polokwane Mini Campus, Cnr Munnik Avenue and Range Entrance Street, Sterpark, Polokwane, 0699 ">Polokwane Mini Campus</option>
+      <option value="Rustenburg Mini Campus, 6 Korokoro Street, Waterval East, Rustenburg, 0300 ">Rustenburg Mini Campus</option>
+      <option value="Witfontein Mini Campus, Cnr Lindsay Street & M57 (Pretoria Road), Witfontein, Kempton Park, 1620 ">Witfontein Mini Campus</option>
+      <option value="Stellenbosch Mini Campus, De Wagenweg Office Park, Adam Tas Avenue, Stellenbosch, 7600 ">Stellenbosch Mini Campus</option>
+      <option value="Stoneridge Mini Campus, Stoneridge Office Park, 8 Greenstone Place, Greenstone Hill, Johannesburg, 1609 ">Stoneridge Mini Campus</option>
+      <option value="Vaal Mini Campus, Shop 123, Vaal Mall, Cnr Barrage Road and Rossini Boulevard, Vanderbijlpark, 2000 ">Vaal Mini Campus</option>
+      <option value="other">Other</option>
+
+      
+
+    </select>
+    <input id="addresstext" name="addresstext" type="text" style="display:none" />
+    <lable>Telephone Number(optional): <INPUT TYPE="text" NAME="telNum" VALUE="" /></lable>
+    <lable>Cellphone Number: <INPUT TYPE="text" NAME="cellNum" VALUE="" /></lable>
+    <lable>Email Address: <INPUT TYPE="text" NAME="email" VALUE="" /></lable>
+    <lable><INPUT TYPE="button" NAME="button" Value="Submit" onClick="generateImage(this.form)" />
+    </FORM>
+    </div>
+    <div id="preview">
+
+
+    </div>
+    
+  </BODY>
+</HTML>
